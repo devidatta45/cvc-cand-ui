@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>CV Cloud Candidate</title>
+</head>
+
+<body>
+    <div class="top-menu">
+        <header class="mobile_menu">
+            <script>
+                $(document).ready(function () {
+                    $("#mob_btn").click(function () {
+                        $(".mob_ul").toggleClass("show");
+                    });
+                });
+            </script>
+            <a class="logo" data-scroll></a>
+            <nav class="nav-collapse">
+                <i id="mob_btn" class="fa fa-bars" aria-hidden="true"></i>
+                <ul class="mob_ul" style="display:none;">
+                    <li><a class="active" (click)="logout()"><img src="../assets/img/h1.png"><span>Login / Logout</span></a></li>
+                    <li><a (click)="showProfile(user._id)"><img src="../assets/img/h2.png"><span>My Profile</span></a>
+                        <ul class="topnav2">
+                            <li><a>EDIT PROFILE</a></li>
+                            <li><a>INTERVIEW</a></li>
+                        </ul>
+                    </li>
+                    <li><a (click)="showSkill(user._id)" class="active"><img src="../assets/img/h3.png"><span>skills hub</span></a></li>
+                    <li><a (click)="showDocument(user._id)"><img src="../assets/img/h4.png"><span>my Documents</span></a></li>
+                    <li><a (click)="showAllMessage(user._id)"><img src="../assets/img/h5.png"><span>Inbox</span></a>
+                        <div class="chat_nmbr">17</div>
+                    </li>
+                    <li><a (click)="showActivityCentre(user._id)"><img src="../assets/img/h6.png"><span>activity Center</span></a>
+                        <div class="chat_nmbr2">3</div>
+                    </li>
+                    <li><a (click)="showContact(user._id)"><img src="../assets/img/h7.png"><span>reports</span></a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="full_nav" *ngIf="user">
+            <nav id="nav" class="dekstop">
+                <ul class="topnav" id="myTopnav">
+                    <li><a class="active" (click)="logout()"><img src="../assets/img/h1.png"><span>Login / Logout</span></a></li>
+                    <li><a (click)="showProfile(user._id)"><img src="../assets/img/h2.png"><span>My Profile</span></a></li>
+                    <li><a class="active" (click)="showSkill(user._id)"><img src="../assets/img/h3.png"><span>skills hub</span></a></li>
+                    <li><a (click)="showDocument(user._id)"><img src="../assets/img/h4.png"><span>my Documents</span></a></li>
+                    <li><a (click)="showAllMessage(user._id)"><img src="../assets/img/h5.png"><span>Inbox</span></a>
+                        <div class="chat_nmbr">{{count}}</div>
+                    </li>
+                    <li><a (click)="showActivityCentre(user._id)"><img src="../assets/img/h6.png"><span>activity Center</span></a>
+                        <div class="chat_nmbr2">{{activityCount}}</div>
+                    </li>
+                    <li><a (click)="showContact(user._id)"><img src="../assets/img/h7.png"><span>reports</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</body>
+
+</html>

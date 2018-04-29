@@ -1,0 +1,47 @@
+/* Video Background */
+
+
+
+
+
+@media screen and (max-width: 500px) {
+    body {
+        background-color: lightgreen;
+    }
+	
+	.size_mb{width:55%;}
+.size_ms{width:43%;}
+.size_m{width:49%;}
+.align_left{float:left;}
+.align_right{float:right;}
+	
+	.profile_header {
+    width: 980px;
+    margin-top: 13px;}
+}
+
+@media screen and (max-width: 800px) {
+	
+	.dekstop{display:none;}
+	.mobile_menu{display:block;    width: 980px;}
+	
+	
+	
+	}
+	
+@media screen and (min-width: 1400px){
+	
+#nav ul li:last-child{right: 20%;}
+.footer{position: relative;
+top: 170px;}
+
+.home_fott {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;}
+.home_fott .home_banner{
+position: absolute;
+bottom: -70px;}
+	
+}

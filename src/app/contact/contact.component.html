@@ -1,0 +1,40 @@
+<html>
+
+<body align="left">
+    <div *ngIf="user">
+        <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+        <div class="contentcentre" *ngIf="user && contact">
+            <h1>Questions</h1>
+            <div>
+                <md-input-container style="font-size: large;">
+                    <input [(ngModel)]="contact.name" mdInput placeholder="Name">
+                </md-input-container>
+                <md-input-container style="font-size: large;">
+                    <input [(ngModel)]="contact.email" mdInput placeholder="Email">
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container style="font-size: large;">
+                    <input [(ngModel)]="contact.subject" mdInput placeholder="Subject">
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container style="font-size: large;">
+                    <input [(ngModel)]="contact.phone" mdInput placeholder="Phone">
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container style="font-size: large;">
+                    <input [(ngModel)]="contact.message" mdInput placeholder="Message">
+                </md-input-container>
+            </div>
+            <div>
+                <button md-button (click)=createMessage(contact) class="btn-sm">Send</button>
+            </div>
+        </div>
+        <ng2-toasty></ng2-toasty>
+        <include-footer></include-footer>
+    </div>
+</body>
+
+</html>

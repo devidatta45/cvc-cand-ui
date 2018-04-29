@@ -1,0 +1,845 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../assets/js/jquery.circlechart.js"></script>
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body align="left" topmargin="0" leftmargin="0" rightmargin="0">
+
+  <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+  <div class="profile_header">
+    <div class="porfile_header_wrapper">MY <span style="color: #FFBD42;">PROFILE </span></div>
+  </div>
+  <div class="container" *ngIf="cvCandidate && !isAddCandidate && !isAddCandidateEmployment && user">
+    <div class="row1">
+      <div class="col1 size_mb align_left">
+        <div style="background:#605E5E;" class="box1 box_border_gray">
+          <div class="profile_title_yellow">PERSONAL DETAILS</div>
+          <table class="detect_joe1" style="margin: 10px 0;">
+            <tr>
+              <td rowspan="5" style="padding:20px;"><br/>
+                <div *ngIf="!isPhotoExist && !isPhotoExistDb">
+                  <img style="border: 5px solid #FED441;" class="bg1" src="../assets/images/avatar.png" height="141" width="114"><br>
+                </div>
+                <div *ngIf="isPhotoExistDb">
+                  <img style="border: 5px solid #FED441;" class="bg1" [src]="dynamicLink" alt="Photo" height="141" width="114">
+                </div>
+              </td>
+
+              <td>&nbsp;</td>
+              <td>
+                <span class="joe_title" style="color:#FED441;">{{user.title}}&nbsp;{{user.firstName}}&nbsp;{{user.lastName}}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>&nbsp;</td>
+              <td><span class="joe_sub_title" style="color:white;">{{cvCandidate.employmentDetails?cvCandidate.employmentDetails.currentEmployer.jobTitle:""}}</span></td>
+            </tr>
+
+            <tr>
+              <td><img src="../assets/img/yellow%20cont1.png"></td>
+              <td>{{user.address}},{{user.postCode}}</td>
+            </tr>
+
+            <tr>
+              <td><img src="../assets/img/yellow%20mob2.png"></td>
+              <td>{{user.mobile}}</td>
+            </tr>
+
+            <tr>
+              <td><img src="../assets/img/yellow%20cont3.png"></td>
+              <td><a href="mailto:Donald.pollock@cv-cloud.co.uk" style="text-decoration: none;color: white;">{{user.email}}</a>
+
+                <a [attr.href]="localLinkedinUrl" style="text-decoration: none;color: white;">{{cvCandidate.employmentDetails?cvCandidate.employmentDetails.linkedinUrl:""}}</a></td>
+            </tr>
+
+          </table>
+
+
+          <table style="border-collapse:collapse;" class="detect_joe1_child1">
+            <tr>
+              <td>LOWEST SALARY</td>
+              <td>DESIRED SALARY</td>
+              <td colspan="4">NEGOTIATE REMUNERATION</td>
+
+            </tr>
+            <tr>
+              <td style="width: 154.33px;">
+                <div class="pk1">£{{cvCandidate.employmentDetails.currentSalary}}</div>
+              </td>
+              <td style="width: 154.33px;">
+                <div class="pk1">£{{cvCandidate.employmentDetails.requiredSalary}}</div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="cvCandidate.employmentDetails.isNegotiable" [disabled]="true">YES</md-checkbox>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="!cvCandidate.employmentDetails.isNegotiable" [disabled]="true">NO</md-checkbox>
+              </td>
+            </tr>
+          </table>
+
+          <table style="border-collapse:collapse;" class="detect_joe1_child1">
+            <tr>
+              <td>LOWEST RATE</td>
+              <td>DESIRED RATE</td>
+              <td colspan="4">WORK TYPE</td>
+
+            </tr>
+            <tr>
+              <td style="width: 154.33px;">
+                <div class="pk1">£{{cvCandidate.employmentDetails.contractRate}} PER DAY</div>
+              </td>
+              <td style="width: 154.33px;">
+                <div class="pk1">£{{cvCandidate.employmentDetails.requiredContractRate}} PER DAY</div>
+              </td>
+              <div>
+                <td>
+                  <md-checkbox [(ngModel)]="cvCandidate.employmentDetails.contract" [disabled]="true">CONT</md-checkbox>
+                </td>
+                <td>
+                  <md-checkbox [(ngModel)]="cvCandidate.employmentDetails.permanent" [disabled]="true">PERM</md-checkbox>
+                </td>
+              </div>
+            </tr>
+          </table>
+        </div>
+
+        <div class="box1 box_border_gray_bold">
+          <div class="profile_title_yellow box_border_gray">CURRICULUM VITAE</div>
+          <div class="vitae_clearfix" *ngIf="dynamicLinkResume">
+            <iframe class="doc" style="width:100%;" [src]="dynamicLinkResume | safe"></iframe>
+          </div>
+        </div>
+
+        <div class="box1 box_border_gray">
+          <div class="profile_title_yellow box_border_gray">WORK EXPERIENCE</div>
+
+          <div style="width:100%;text-align: left;background:#CCCCCC;font-size: 12px;color: #605E5E;font-weight: 800;margin: 15px 0;padding: 2px 10px;margin-bottom: 0;font-family: arial;">CURRENT ROLE</div>
+          <div class="row1" *ngIf="cvCandidate.employmentDetails.currentEmployer">
+            <table class="detect_prof2">
+              <tr>
+                <td style="font-size:18px"><b>{{cvCandidate.employmentDetails.currentEmployer.name}}, {{cvCandidate.employmentDetails.currentEmployer.location}}</b></td>
+              </tr>
+              <tr>
+                <td style="font-size:18px"><b>{{cvCandidate.employmentDetails.currentEmployer.jobTitle}}</b></td>
+              </tr>
+              <tr>
+                <td style="font-size:18px"><b>pound{{cvCandidate.employmentDetails.currentEmployer.salary}}</b></td>
+              </tr>
+            </table>
+
+
+            <table class="detect_prof2_">
+              <tr>
+                <td>
+                  <div>START</div>
+                </td>
+                <td>
+                  <div>END</div>
+                </td>
+                <td>
+                  <div>TOTAL</div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div>{{getRequiredDate(cvCandidate.employmentDetails.currentEmployer.startDate)}}</div>
+                </td>
+                <td>
+                  <div>{{getRequiredDate(cvCandidate.employmentDetails.currentEmployer.endDate)}}</div>
+                </td>
+                <td>
+                  <div>{{getDiff(cvCandidate.employmentDetails.currentEmployer.startDate,cvCandidate.employmentDetails.currentEmployer.endDate)}}</div>
+                </td>
+              </tr>
+
+
+            </table>
+
+          </div>
+
+          <div class="detect_joe3_title">PREVIOUS ROLES</div>
+          <table class="detect_joe3" *ngIf="cvCandidate.employmentDetails.previousEmployers && cvCandidate.employmentDetails.previousEmployers.length > 0">
+            <tr *ngFor="let employer of cvCandidate.employmentDetails.previousEmployers">
+              <td width="39%"> {{employer.name}}</td>
+              <td width="26%">{{employer.location}}</td>
+              <td width="35%">{{employer.jobTitle}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="col2 size_ms align_right">
+        <div class="box2 box_border_gray" style="height: 255px;background: #605E5E;">
+          <div class="profile_title_yellow">SKILL SCORE COMPARISON</div>
+          <div style="width:100%;height:20px;"></div>
+          <div style="overflow:hidden">
+            <div style="float:left;width:50%;padding-right:0;" class="profile_title_yellow box_border_gray">CURRENT JOB</div>
+            <div style="float:right;width:49%;padding-right:0;" class="profile_title_green box_border_gray">LIVE SCORE</div>
+          </div>
+
+          <div style="width:100%;height:15px;"></div>
+          <div class="joe_candidate" *ngIf="cvCandidate.employmentDetails && cvCandidate.employmentDetails.currentEmployer && cvCandidate.employmentDetails.currentEmployer.skills.length > 0">
+            <table style="background: #F0EBEB;" class="detect_joe4 fix1">
+              <tr>
+                <td>{{cvCandidate.employmentDetails.currentEmployer.skills[0].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.employmentDetails.currentEmployer.skills[0].score}}</span></td>
+                <td>{{cvCandidate.employmentDetails.currentEmployer.skills[1].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.employmentDetails.currentEmployer.skills[1].score}}</span></td>
+              </tr>
+              <tr>
+                <td>{{cvCandidate.employmentDetails.currentEmployer.skills[2].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.employmentDetails.currentEmployer.skills[2].score}}</span></td>
+                <td>{{cvCandidate.employmentDetails.currentEmployer.skills[3].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.employmentDetails.currentEmployer.skills[3].score}}</span></td>
+              </tr>
+              <tr>
+                <td>{{cvCandidate.employmentDetails.currentEmployer.skills[4].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.employmentDetails.currentEmployer.skills[4].score}}</span></td>
+                <td>{{cvCandidate.employmentDetails.currentEmployer.skills[5].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.employmentDetails.currentEmployer.skills[5].score}}</span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="joe_candidate2" *ngIf="cvCandidate.skills && cvCandidate.skills.length > 0">
+            <table style="background: #F0EBEB;" class="detect_joe4 fix2">
+              <tr>
+                <td>{{cvCandidate.skills[0].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.skills[0].score}}</span></td>
+                <td>{{cvCandidate.skills[1].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.skills[1].score}}</span></td>
+              </tr>
+              <tr>
+                <td>{{cvCandidate.skills[2].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.skills[2].score}}</span></td>
+                <td>{{cvCandidate.skills[3].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.skills[3].score}}</span></td>
+              </tr>
+              <tr>
+                <td>{{cvCandidate.skills[4].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.skills[4].score}}</span></td>
+                <td>{{cvCandidate.skills[5].name}}</td>
+                <td><span class="skill_nmbr">{{cvCandidate.skills[5].score}}</span></td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="box2 box_border_gray">
+          <div class="profile_title_yellow box_border_gray">JOB APPLICATIONS</div>
+          <table class="prof_detect7" *ngIf="applications.length > 0">
+
+            <tr *ngFor="let application of applications">
+              <td><img src="../assets/img/dhl.gif"></td>
+              <td>{{application.client}}</td>
+              <td>{{application.jobTitle}}</td>
+              <td>{{getRequiredDate(application.startDate)}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="box1 box_border_gray">
+          <div class="profile_title_green">JOE BLOGGS WORK STATUS</div>
+          <div class="profile_title_gray">SEEKING NEW PERM ROLE</div>
+
+        </div>
+        <div class="box2 box_border_gray">
+          <div class="profile_title_yellow box_border_gray">YOUR CURRENT LOCATION</div>
+
+          <div leaflet style="height: 300px;" *ngIf="mapOptions" [leafletOptions]="mapOptions" (leafletMapReady)="onMapReady($event)">
+          </div>
+          <table class="detect_prof4">
+            <tr>
+              <td>PERM RADIUS</td>
+              <td>CONT RADIUS</td>
+
+              <td colspan="7">CONTRACT LOCATIONS</td>
+
+            </tr>
+            <tr class="detect_joe6_row2" *ngIf="cvCandidate.employmentDetails">
+              <td>
+                <div>{{cvCandidate.employmentDetails.jobTravelDistancePerm}} MILES </div>
+              </td>
+              <td>
+                <div>{{cvCandidate.employmentDetails.jobTravelDistanceContract}} MILES </div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="uk" [disabled]="true">UK</md-checkbox>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="eu" [disabled]="true">EU</md-checkbox>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="apac" [disabled]="true">APAC</md-checkbox>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box4 detect_edit12">
+          <div class="profile_title_yellow box_border_gray" style="text-align:center;padding-right:0px;">PROFILE STATISTICS</div>
+          <span style="    color: #ED1566;text-align: center;display: block;font-weight: 800;   padding-top: 20px;font-size: 20px;">% COMPLETE</span><br/>
+          <img src="../assets/img/img1.gif">
+          <button class="green_btn">IMPROVE YOUR PROFILE</button><br/>
+        </div>
+        <div>
+          <span>EDIT</span>
+          <a (click)="editCandidateForm()"><img src="../assets/img/f8.png"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="isAddCandidate && personal">
+    <div class="box1 box box_border_gray">
+      <div class="profile_title_yellow"><span>ON-SCREEN PERSONAL DETAILS</span></div>
+      <div class="row1 x1" style="background:#605E5E;">
+        <div class="col1 size20 align_left">
+          <td rowspan="5" style="padding:20px;"><br/>
+            <div *ngIf="!isPhotoExist && !isPhotoExistDb">
+              <img style="border: 5px solid #FED441;" class="bg1" src="../assets/images/avatar.png" height="141" width="114"><br>
+              <button class="edit_btn1 yellowTOred" (click)="isPhotoExist=!isPhotoExist">UPLOAD PHOTO</button>
+            </div>
+            <div *ngIf="isPhotoExist">
+              <h1>Upload Photo</h1>
+              <img src="../assets/images/avatar.png" height="141" width="114"><br>
+
+              <input type="file" ng2FileSelect [uploader]="uploader" />
+              <tr *ngFor="let item of uploader.queue">
+                <td class="text-center">
+                  <span *ngIf="item.isSuccess">Success</span>
+                  <span *ngIf="item.isCancel">Cancelled</span>
+                  <span *ngIf="item.isError">Error</span>
+                </td>
+                <button md-button (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess" class="btn-sm">
+              Upload
+            </button>
+                <button md-button (click)="item.remove()" class="btn-sm">
+              Cancel
+            </button>
+              </tr>
+            </div>
+            <div *ngIf="isPhotoExistDb">
+              <img style="border: 5px solid #FED441;" class="bg1" [src]="dynamicLink" alt="Photo" height="141" width="114">
+              <button class="edit_btn1 yellowTOred" (click)="isPhotoExist=!isPhotoExist">EDIT PHOTO</button>
+            </div>
+          </td>
+        </div>
+        <div class="col2 align_left size70">
+          <form>
+            <table class="detect_edit1">
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <ul class="frm_level1">
+                    <li> <input type="text" [(ngModel)]="personal.title" name="title" placeholder="Title" class="c1 box_border_gray">                      </li>
+                    <li> <input type="text" [(ngModel)]="personal.firstName" name="firstName" placeholder="FirstName" class="c2 box_border_gray"></li>
+                    <li> <input type="text" [(ngModel)]="personal.lastName" name="lastName" placeholder="LastName" class="c3 box_border_gray"></li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../assets/img/f3.png">
+                </td>
+                <td>
+                  <ul class="frm_level1">
+                    <li> <input type="text" [(ngModel)]="personal.employmentDetails.linkedinUrl" name="linkedinurl" placeholder="Linkedin Url"
+                        class="e1 box_border_gray"> </li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td><img src="../assets/img/f1.png">
+                </td>
+                <td>
+                  <ul class="frm_level1">
+                    <li> <input type="text" [(ngModel)]="personal.employmentDetails.noticePeriod" name="notice period" placeholder="Notice Period"
+                        class="e1 box_border_gray"> </li>
+                    weeks
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../assets/img/f4.png">
+                </td>
+                <td>
+                  <ul class="frm_level10">
+                    <li> <input type="text" [(ngModel)]="personal.address" name="address" placeholder="Address" class="e2 box_border_gray"></li>
+                    <li> <input type="text" [(ngModel)]="personal.postCode" name="postcode" placeholder="Post Code" class="e3 box_border_gray"></li>
+
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../assets/img/f5.png">
+                </td>
+                <td>
+                  <ul class="frm_level1">
+                    <li> <input type="email" [(ngModel)]="personal.mobile" name="mobile" placeholder="Mobile" class="e1 box_border_gray"></li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../assets/img/f6.png">
+                </td>
+                <td>
+                  <ul class="frm_level1">
+                    <li> <input type="text" [(ngModel)]="personal.email" name="email" placeholder="Email" class="e1 box_border_gray"></li>
+
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <ul class="frm_level11">
+                    <li>
+                      <div class="blue_bc">PASSWORD</div>
+                    </li>
+                    <li> <input type="password" [(ngModel)]="personal.password" name="password" placeholder="Password" class="e3 box_border_gray">                      </li>
+
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <ul class="frm_level11">
+                    <li> </li>
+                    <li> <a>FORGOT PASSWORD</a> </li>
+
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <!-- end Of 1st Col -->
+
+        <div class="col3 align_left size10">
+        </div>
+        <!-- end Of 2nd Col -->
+        <div class="btns z1">
+          <ul>
+            <li><button class="green_btn btn_edit3" (click)="createPersonal(personal)">SAVE</button></li>
+          </ul>
+        </div>
+      </div>
+      <!-- end Of 1st row -->
+      <div class="box2 box_border_gray">
+        <div class="profile_title_yellow">EDIT CURRENT/LAST EMPLOYMENT DETAILS</div>
+      </div>
+
+      <div class="reg_sec2">
+        <table>
+          <tr>
+            <td width="10px">&nbsp;</td>
+            <td width="15px"><input type="text" width="10px" [(ngModel)]="personal.employmentDetails.currentEmployer.name" placeholder="CURRENT EMPLOYER"
+                class="box_border_gray c14"></td>
+            <td width="15px">&nbsp;</td>
+            <td>
+              <material-datepicker [(date)]="personal.employmentDetails.currentEmployer.startDate"></material-datepicker>
+            </td>
+            <td width="10px">&nbsp;</td>
+            <td>
+              <material-datepicker [(date)]="personal.employmentDetails.currentEmployer.endDate"></material-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="10px">&nbsp;</td>
+            <td width="15px"><input type="text" [(ngModel)]="personal.employmentDetails.currentEmployer.jobTitle" placeholder="JOB TITLE"
+                class="box_border_gray c14"></td>
+
+            <td width="15px">&nbsp;</td>
+            <td><b>£: </b><input type="text" [(ngModel)]="personal.employmentDetails.currentEmployer.salary" placeholder="SALARY"
+                class="box_border_gray e7"></td>
+            <td width="10px">&nbsp;</td>
+            <td><input type="text" [(ngModel)]="personal.employmentDetails.currentEmployer.location" placeholder="LOCATION" class="box_border_gray e7"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="step2">
+
+        <p class="font_8">THESE ARE YOUR SECONDARY SKILLS. ADDING AS MANY SECONDARY SKILLS WILL GIVE YOU MORE ACCESS TO MORE AVAILABLE JOBS
+          AND CLIENTS. YOU CAN SWITCH YOUR 6 MAIN PRIMARY SKILLS WITH ANY OF YOUR SECONDARY SKILLS. </p><br><br>
+
+      </div>
+      <div class="row1 x2" *ngIf="skillList.length > 0" width="100%">
+        <div class="reg_sec3_col1 align_left size_s">
+          <table class="dtetct_edit2">
+            <tr>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[0].name" size="8" placeholder="SKILL 1" style="border:0px">
+              </td>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[0].score" size="8" placeholder="SCORE" style="background-color: #FED441;border:0px">
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[3].name" size="8" placeholder="SKILL 4" style="border:0px">
+              </td>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[3].score" size="8" placeholder="SCORE" style="background-color: #FED441;border:0px">
+              </td>
+            </tr>
+          </table>
+
+        </div>
+
+        <div class="reg_sec3_col1 align_left size_s">
+          <table class="dtetct_edit2">
+            <tr>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[1].name" size="8" placeholder="SKILL 2" style="border:0px">
+              </td>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[1].score" size="8" placeholder="SCORE" style="background-color: #FED441;border:0px">
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[4].name" size="8" placeholder="SKILL 5" style="border:0px">
+              </td>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[4].score" size="8" placeholder="SCORE" style="background-color: #FED441;border:0px">
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="reg_sec3_col1 align_left size_s">
+          <table class="dtetct_edit2">
+            <tr>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[2].name" size="8" placeholder="SKILL 3" style="border:0px">
+              </td>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[2].score" size="8" placeholder="SCORE" style="background-color: #FED441;border:0px">
+              </td>
+
+            </tr>
+            <tr>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[5].name" size="9" placeholder="SKILL 6" style="border:0px">
+              </td>
+              <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+                <input type="text" [(ngModel)]="skillList[5].score" size="9" placeholder="SCORE" style="background-color: #FED441;border:0px">
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="btns z2"><input type="text" [(ngModel)]="personal.currentStatus" class="box_border_gray c14 align_left" placeholder="EMPLOYMENT STATUS">
+          <ul>
+            <li><button class="green_btn btn_edit3" (click)="updateEmployer(personal)">SAVE</button></li>
+          </ul>
+        </div>
+      </div>
+      <br><br>
+      <div class="box2 box_border_gray">
+        <div class="profile_title_yellow">PREVIOUS EMPLOYMENT</div>
+      </div>
+      <div class="reg_sec3_col1 align_left size_s">
+
+
+
+        <table class="dtetct_edit3">
+          <tr *ngFor="let employer of employerList;let i=index">
+            <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+              <input type="text" [(ngModel)]="employer.name" size="15" placeholder=" EMPLOYER NAME" style="border:0px">
+            </td>
+
+            <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+              <material-datepicker [(date)]="employer.startDate"></material-datepicker>
+            </td>
+
+            <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+              <material-datepicker [(date)]="employer.endDate"></material-datepicker>
+            </td>
+
+            <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+              <input type="text" [(ngModel)]="employer.jobTitle" size="8" placeholder=" JOB TITLE" style="border:0px">
+            </td>
+
+            <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+              <input type="text" [(ngModel)]="employer.salary" size="8" placeholder=" Salary" style="border:0px">
+            </td>
+
+            <td align="center" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;border:1px solid #605E5E;">
+              <input type="text" [(ngModel)]="employer.location" size="8" placeholder=" LOCATION" style="border:0px">
+            </td>
+            <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px; border:0px">
+              <button class="green_btn_custom btn_edit_custom" (click)="removeFromEmployerList(i)" height="5px">REMOVE</button>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+      <div class="btns z2">
+        <ul>
+          <li><button class="green_btn btn_edit3" (click)="addToEmployerList()">ADD</button></li>
+          <li><button class="green_btn btn_edit3" (click)="updatePreviousEmployer()">SAVE</button></li>
+        </ul>
+      </div>
+      <br><br>
+      <div class="box2 box_border_gray">
+        <div class="profile_title_yellow">JOB SEARCH CRITERIA</div>
+      </div>
+      <div class="row1 x4">
+        <div class="edit_btn11 blue_bc">NEGOTIABLE</div>
+        <div class="reg_sec3_col1 align_left size_s">
+          <table class="dtetct_edit3">
+            <tr>
+              <td class="box_border_gray">
+                <div><span>LOWEST PERM SALARY</span></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><span>DESIRED PERM SALARY</span></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><span>LOWEST CONTRACT RATE</span></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><span>DESIRED CONTRACT RATE</span></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="reg_sec3_col1 align_left size_s">
+          <table class="dtetct_edit6">
+            <tr>
+              <td align="left" style="padding-left: 0px; padding-right: 0px; padding-top: 8px; padding-bottom: 2px;"><b>£</b>&nbsp;
+                <input type="text" [(ngModel)]="personal.employmentDetails.currentSalary" size="8" placeholder="0" class="box_border_gray ctb">
+              </td>
+              <td>P/A&nbsp;&nbsp;&nbsp;</td>
+              <td valign="middle">
+                <md-checkbox [(ngModel)]="personal.employmentDetails.isNegotiable"></md-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style="padding-left: 0px; padding-right: 0px; padding-top: 7px; padding-bottom: 2px;"><b>£</b>&nbsp;
+                <input type="text" [(ngModel)]="personal.employmentDetails.requiredSalary" size="8" placeholder="0" class="box_border_gray ctb">
+              </td>
+              <td>P/A&nbsp;&nbsp;&nbsp;</td>
+              <td valign="middle">
+                <md-checkbox [(ngModel)]="isDesiredSalary"></md-checkbox>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="left" style="padding-left: 0px; padding-right: 0px; padding-top: 8px; padding-bottom: 2px;"><b>£</b>&nbsp;
+                <input type="text" [(ngModel)]="personal.employmentDetails.contractRate" size="8" placeholder="0" class="box_border_gray ctb">
+              </td>
+              <td>P/D&nbsp;&nbsp;&nbsp;</td>
+              <td valign="middle">
+                <md-checkbox [(ngModel)]="isContractRate"></md-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style="padding-left: 0px; padding-right: 0px; padding-top: 7px; padding-bottom: 2px;"><b>£</b>&nbsp;
+                <input type="text" [(ngModel)]="personal.employmentDetails.requiredContractRate" size="8" placeholder="0" class="box_border_gray ctb">
+              </td>
+              <td>P/D&nbsp;&nbsp;&nbsp;</td>
+              <td valign="middle">
+                <md-checkbox [(ngModel)]="isDesiredContractRate"></md-checkbox>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="reg_sec3_col1 align_left size_s">
+          <table class="dtetct_edit7">
+            <tr>
+              <td>
+                <div><span>SEEKING PERMANENT</span></div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="personal.employmentDetails.permanent"></md-checkbox>
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <div><span>PERM RADIUS</span></div>
+              </td>
+              <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                <input type="text" [(ngModel)]="personal.employmentDetails.jobTravelDistancePerm" size="8" placeholder="MILES" class="box_border_gray ctb">
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div><span>SEEKING CONTRACT</span></div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="personal.employmentDetails.contract"></md-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><span>CONTRACT RADIUS</span></div>
+              </td>
+              <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                <input type="text" [(ngModel)]="personal.employmentDetails.jobTravelDistanceContract" size="8" placeholder="MILES" class="box_border_gray ctb">
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div><span>CONTRACT Location</span></div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="uk">UK</md-checkbox>
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="eu">EU</md-checkbox>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <md-checkbox [(ngModel)]="apac">APAC</md-checkbox>
+              </td>
+            </tr>
+
+          </table>
+
+        </div>
+        <div style="padding-left: 20px; ">
+          <table class="dtetct_edit9">
+            <tr>
+              <td>
+                <div><span>TELEPHONE INT NOTICE</span></div>
+              </td>
+
+
+            </tr>
+
+            <tr>
+              <td>
+                <div><span>FACE 2 FACE INT NOTICE</span></div>
+              </td>
+
+
+            </tr>
+
+            <tr>
+              <td>
+                <div><span>REASON FOR JOB SEARCH</span></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="dtetct_edit10">
+            <tr>
+              <td></td>
+              <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                <input type="text" [(ngModel)]="personal.employmentDetails.telephonicNotice" size="8" placeholder=" 24" class="box_border_gray ctb2">&nbsp;Hrs
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 1px; padding-bottom: 2px;">
+                <input type="text" [(ngModel)]="personal.employmentDetails.faceToFaceNotice" size="8" placeholder=" 48" class="box_border_gray ctb2">&nbsp;Hrs
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 1px; padding-bottom: 2px;">
+                <!--<input type="text" [(ngModel)]="personal.employmentDetails.newJobReason" size="8" placeholder="New Job Reason" class="box_border_gray ctb2">-->
+                <textarea rows="4" [(ngModel)]="personal.employmentDetails.newJobReason" placeholder="New Job Reason" class="box_border_gray ctb3"
+                  cols="50"></textarea>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="btns z2">
+          <ul>
+
+            <li><button class="green_btn btn_edit3" (click)="updateJobSearchDetails(personal)">SAVE</button></li>
+          </ul>
+        </div>
+        <br><br>
+
+      </div>
+
+
+
+    </div>
+    <!-- div to enclose all section -->
+
+    <div class="row1 x5" style="margin-top: 10px;">
+
+      <div class="col1 size_mb align_left">
+        <div style="border:1px solid #80E05C;" class="box3">
+          <div class="profile_title" style="background:rgba(128, 224, 92, 1);text-align:center;padding-right: 0px;">YOUR CVCLOUD ASSISTANT</div>
+
+
+          <table class="detect_edit11">
+            <tr>
+              <td><img src="../assets/img/profile.png">
+                <button class="green_btn">CHAT NOW</button>
+
+              </td>
+
+              <td>
+                <span>MY NAME IS DONALD POLLOCK.</span>
+
+                <p>I AM YOUR DEDICATED ACCOUNT MANAGER. I AM AVAILABLE TO HELP YOU 24/7 NO MATTER WHAT YOUR QUERY IS. </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col2 size_ms align_right">
+        <div class="box4 detect_edit12">
+          <div class="profile_title" style="text-align:center;background:#605E5E;padding-right:0px;">PROFILE STATISTICS</div>
+          <span style="    color: #ED1566;text-align: center;display: block;font-weight: 800; padding-top: 20px;font-size: 20px;">% COMPLETE</span><br/>
+          <img src="../assets/img/img1.gif">
+          <button class="grayTOgreen">IMPROVE YOUR PROFILE</button><br/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width:100%;height:40px;"></div>
+  <!-- Footer -->
+  <div class="footer">
+    <ul>
+      <li>©2016 CVCLOUD</li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Site Map</a></li>
+    </ul>
+  </div>
+  <ng2-toasty></ng2-toasty>
+</body>
+
+</html>

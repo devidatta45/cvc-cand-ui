@@ -1,0 +1,19 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../assets/js/jquery.circlechart.js"></script>
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body align="left">
+
+    <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+
+    <div class="contentcentre" *ngIf="user">
+        <h1>Welcome {{user.firstName}} {{user.lastName}}</h1>
+    </div>
+    <include-footer></include-footer>
+</body>

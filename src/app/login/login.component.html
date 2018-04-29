@@ -1,0 +1,374 @@
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- for The Mobile Version Menu -->
+    <script src="js/fastclick.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/fixed-responsive-nav.js"></script>
+    <script src="js/responsive-nav.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- End of Mobile Version Menu -->
+    <title>CV Cloud Candidate</title>
+</head>
+
+<body>
+    <div class="top-menu">
+        <header class="mobile_menu">
+            <script>
+                $(document).ready(function () {
+                    $("#mob_btn").click(function () {
+                        $(".mob_ul").toggleClass("show");
+                    });
+                });
+            </script>
+            <a href="#home" class="logo" data-scroll></a>
+            <nav class="nav-collapse">
+                <i id="mob_btn" class="fa fa-bars" aria-hidden="true"></i>
+                <ul class="mob_ul" style="display:none;">
+                    <li><a class="active" (click)="showLogin()"><img src="../assets/img/h1.png"><span>Login / Logout</span></a></li>
+                    <li><a (click)="showError()"><img src="../assets/img/h2.png"><span>My Profile</span></a>
+                        <ul class="topnav2">
+                            <li><a (click)="showError()">EDIT PROFILE</a></li>
+                            <li><a (click)="showError()">INTERVIEW</a></li>
+                        </ul>
+                    </li>
+                    <li><a (click)="showError()" class="active"><img src="../assets/img/h3.png"><span>skills hub</span></a></li>
+                    <li><a (click)="showError()"><img src="../assets/img/h4.png"><span>my Documents</span></a></li>
+                    <li><a (click)="showError()"><img src="../assets/img/h5.png"><span>Inbox</span></a>
+                        <div class="chat_nmbr">17</div>
+                    </li>
+                    <li><a (click)="showError()"><img src="../assets/img/h6.png"><span>activity Center</span></a>
+                        <div class="chat_nmbr2">3</div>
+                    </li>
+                    <li><a (click)="showError()"><img src="../assets/img/h7.png"><span>reports</span></a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="full_nav">
+            <nav id="nav" class="dekstop">
+                <ul class="topnav" id="myTopnav">
+                    <li><a class="active" (click)="showLogin()"><img src="../assets/img/h1.png"><span>Login / Logout</span></a></li>
+                    <li><a (click)="showError()"><img src="../assets/img/h2.png"><span>My Profile</span></a>
+                        <ul class="topnav2">
+                            <li><a (click)="showError()">EDIT PROFILE</a></li>
+                            <li><a (click)="showError()">INTERVIEW</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="active" (click)="showError()"><img src="../assets/img/h3.png"><span>skills hub</span></a></li>
+                    <li><a (click)="showError()"><img src="../assets/img/h4.png"><span>my Documents</span></a></li>
+                    <li><a (click)="showError()"><img src="../assets/img/h5.png"><span>Inbox</span></a>
+                        <div class="chat_nmbr">17</div>
+                    </li>
+                    <li><a (click)="showError()"><img src="../assets/img/h6.png"><span>activity Center</span></a>
+                        <div class="chat_nmbr2">3</div>
+                    </li>
+                    <li><a (click)="showError()"><img src="../assets/img/h7.png"><span>reports</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="cv_background">
+        <video playsinline autoplay muted loop poster="polina.jpg" id="bgvid">
+            <source src="../assets/img/UC-download.mp4" type="video/mp4">
+            <!--[if lt IE 9] -->
+            <script>
+                document.createElement('video');
+            </script>
+            <!--[endif]-->
+        </video>
+    </div>
+    <div class="ind_wrap" *ngIf="!isRegister && !isForget">
+        <div class="frm">
+            <div class="title">
+                <span>Log into your account</span>
+            </div>
+            <form name="loginForm">
+                <div id="input_container">
+                    <img src="../assets/img/f1.png" id="input_img">
+                    <input type="text" name="mail" [(ngModel)]="login.email" placeholder="Email Address">
+                </div>
+                <div id="input_container">
+                    <img src="../assets/img/f2.png" id="input_img">
+                    <input type="password" name="pass" [(ngModel)]="login.password" placeholder="Password">
+                </div>
+                <div style="text-align: right;width:50%;font-size: 10px;font-weight: 900;margin: 10px auto;color: gray;text-decoration: underline;">
+                    <a (click)="isForget=!isForget" style="color: gray;">FORGOT PASSWORD</a> </div>
+                <br>
+
+                <div class="btn">
+                    <input type="submit" value="Log In" (click)="showDetails(login)" class="frm_reg">
+                    <button class="frm_log" (click)="isRegister=!isRegister">REGISTER</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="isRegister && !isForget">
+        <div class="profile_header">
+            <div class="porfile_header_wrapper">WELCOME TO <span style="color: #FFBD42;">CVCLOUD</span></div>
+        </div>
+        <div class="container">
+            <div class="box1 box box_border_gray">
+              <div class="box1 box box_border_gray">
+                <div class="profile_title_yellow"><span>INITIAL REGISTRATION</span></div>
+              </div>
+                <div class="row1">
+                    <div class="col1 align_left size_b">
+                        <form name="registrationForm">
+                            <ul class="frm_level1">
+                                <li> <input type="text" [(ngModel)]="register.title" Value="TITLE" name="title" class="c1 box_border_gray"
+                                        placeholder="Title"> </li>
+                                <li> <input type="text" [(ngModel)]="register.firstName" Value="FIRST NAME" name="firstName" class="c2 box_border_gray"
+                                        placeholder="First Name"></li>
+                                <li> <input type="text" [(ngModel)]="register.lastName" Value="LAST NAME" name="lastName" class="c3 box_border_gray"
+                                        placeholder="Last Name"></li>
+                            </ul>
+
+                            <ul class="frm_level2">
+                                <li> <input type="text" [(ngModel)]="register.email" Value="EMAIL ADDRESS" name="email" class="c4 box_border_gray"
+                                        placeholder="Email"> </li>
+                                <li> <input type="text" [(ngModel)]="emailAgain" (ngModelChange)="checkEmail($event)" name="emailAgainName"
+                                        Value="RE-ENTER EMAIL ADDRESS" class="c5 box_border_gray" placeholder="Re-enter Email"> {{emailText}}
+                                </li>
+                                <li> <input type="password" [(ngModel)]="register.password" #password="ngModel" Value="CREATE PASSWORD"
+                                        name="pass" class="c6 box_border_gray" placeholder="Password"></li>
+                                <li> <input type="password" [(ngModel)]="passwordAgain" (ngModelChange)="checkPassword($event)"
+                                        name="passwordAgainName" Value="RE-ENTER PASSWORD" class="c7 box_border_gray" placeholder="Re-enter Password">                                    {{passwordText}} {{passwordText}}
+                                </li>
+                            </ul>
+                            <div>
+                                <ul>
+                                    <ng2-password-strength-bar [passwordToCheck]="register.password" [barLabel]="passwordLabel">
+                                    </ng2-password-strength-bar>
+                                </ul>
+                            </div>
+<br>
+                            <ul class="frm_level3">
+                                <li> <input type="text" [(ngModel)]="register.mobile" Value="MOBILE NUMBER" name="mobile" class="c8 box_border_gray"
+                                        placeholder="Mobile"> </li>
+                                <li> <input type="text" [(ngModel)]="register.address" Value="HOME ADDRESS" name="address" class="c9 box_border_gray"
+                                        placeholder="Address"></li>
+                            </ul>
+
+                            <ul class="frm_level4">
+                                <li> <input type="text" [(ngModel)]="register.country" Value="COUNTRY" name="country" class="c10 box_border_gray"
+                                        placeholder="Country"></li>
+                              <br><br>
+                                <li> <input type="text" [(ngModel)]="register.postCode" Value="POST CODE" name="postCode" class="c12 box_border_gray"
+                                        placeholder="Post Code"></li>
+                            </ul>
+                        </form>
+
+                    </div>
+
+                    <div class="col2 align_right size_s">
+                        <div class="step1">
+                            <h2>STEP 1</h2>
+                            <p>YOU NEED TO COMPLETE YOUR PERSONAL DETAILS AND SELECT AN APPROVED PASSWORD. ONCE YOU VERIFY YOUR
+                                REGISTRATION DETAILS WE WILL SEND YOU A CONFIRMATION EMAIL. FOLLOW THE INSTRUCTIONS ON THE
+                                EMAIL TO FINALISE YOUR CVCLOUD REGISTRATION</p>
+                        </div>
+                        <button class="reg_btn_1 yellowTOred" (click)="createUser(register)">SAVE & REGISTER</button>
+                    </div>
+                </div>
+                <br>
+              <div class="box1 box box_border_gray">
+                <div class="profile_title_yellow"><span>JOB APPLICATION PRIMARY SKILLS</span></div>
+                </div>
+
+                <div class="reg_sec2" *ngIf="job">
+                    <ul>
+                        <li><input type="text" [(ngModel)]="jobReference" [readonly]="true" name="reference" value="CVCLOUD JOB REFERENCE NUMBER"
+                                class="box_border_gray c14"></li>
+                        <li><strong>{{job.jobTitle}}</strong></li>
+                    </ul>
+                </div>
+                <div class="row1">
+                    <div class="reg_sec3_col1 align_left size_s">
+                        <table class="dtetct_reg_1">
+                            <tr>
+                                <td>SKILLS</td>
+                                <td>REQ'D</td>
+                                <td>YOURS</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{skillList[0].name}}</td>
+                                <td>{{skillList[0].requiredScore}}</td>
+                                <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                                    <input type="text" [(ngModel)]="skillList[0].score" (ngModelChange)="checkRange(skillList[0])" (keypress)="_keyPress($event)"
+                                        Value="Score" name="Score" style="background-color: #FED441;" size="8" placeholder="Score">                                    {{getStatus(skillList[0])}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{skillList[1].name}}</td>
+                                <td>{{skillList[1].requiredScore}}</td>
+                                <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                                    <input type="text" [(ngModel)]="skillList[1].score" (ngModelChange)="checkRange(skillList[1])" (keypress)="_keyPress($event)"
+                                        Value="Score" name="Score" style="background-color: #FED441;" size="8" placeholder="Score">                                    {{getStatus(skillList[1])}}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="reg_sec3_col1 align_left size_s">
+                        <table class="dtetct_reg_1">
+                            <tr>
+                                <td>SKILLS</td>
+                                <td>REQ'D</td>
+                                <td>YOURS</td>
+                            </tr>
+                            <tr>
+                                <td>{{skillList[2].name}}</td>
+                                <td>{{skillList[2].requiredScore}}</td>
+                                <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                                    <input type="text" [(ngModel)]="skillList[2].score" (ngModelChange)="checkRange(skillList[2])" (keypress)="_keyPress($event)"
+                                        Value="Score" name="Score" style="background-color: #FED441;" size="8" placeholder="Score">                                    {{getStatus(skillList[2])}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{skillList[3].name}}</td>
+                                <td>{{skillList[3].requiredScore}}</td>
+                                <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                                    <input type="text" [(ngModel)]="skillList[3].score" (ngModelChange)="checkRange(skillList[3])" (keypress)="_keyPress($event)"
+                                        Value="Score" name="Score" style="background-color: #FED441;" size="8" placeholder="Score">                                    {{getStatus(skillList[3])}}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="reg_sec3_col1 align_left size_s">
+                        <table class="dtetct_reg_1">
+                            <tr>
+                                <td>SKILLS</td>
+                                <td>REQ'D</td>
+                                <td>YOURS</td>
+                            </tr>
+                            <tr>
+                                <td>{{skillList[4].name}}</td>
+                                <td>{{skillList[4].requiredScore}}</td>
+                                <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                                    <input type="text" [(ngModel)]="skillList[4].score" (ngModelChange)="checkRange(skillList[4])" (keypress)="_keyPress($event)"
+                                        Value="Score" name="Score" style="background-color: #FED441;" size="8" placeholder="Score">                                    {{getStatus(skillList[4])}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{skillList[5].name}}</td>
+                                <td>{{skillList[5].requiredScore}}</td>
+                                <td align="left" valign="top" style="padding-left: 0px; padding-right: 0px; padding-top: 2px; padding-bottom: 2px;">
+                                    <input type="text" [(ngModel)]="skillList[5].score" (ngModelChange)="checkRange(skillList[5])" (keypress)="_keyPress($event)"
+                                        Value="Score" name="Score" style="background-color: #FED441;" size="8" placeholder="Score">                                    {{getStatus(skillList[5])}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="step2">
+                    <h2>STEP 2</h2>
+                    <p class="font_8">THIS IS WHERE YOU SET YOUR INITIAL PRIMARY SKILL SCORES.</p>
+                    <p class="font_8"></p>
+                    <p class="font_8">AS YOU HAVE APPLIED FOR A DIRECT JOB YOUR PRIMARY SKILLS HAVE BEEN FIXED TO MIRROR THE ROLE THAT YOU
+                        ARE APPLYING FOR.
+                    </p>
+                    <p class="font_8">IF ANY OF YOUR SKILLS ARE NOT AT LEAST THE MINIMUM SCORE YOUR PROFILE WILL NOT APPEAR TOP OF THE LIST
+                        OF APPLICANTS.</p>
+                    <p class="font_8"></p>
+                    <p class="font_8">ONCE YOU HAVE SET YOUR OWN SKILL SCORES AND SUBMITTED; YOUR CVCLOUD WILL BE ON HOLD PENDING AUTHORISATION
+                        AND VERIFICATION.
+                    </p>
+                    <p class="font_8">THIS PROCESS CAN TAKE UP TO 24 HOURS. ONCE COMPLETED YOU WILL BE NOTIFIED VIA EMAIL WHERE YOU WILL CLICK
+                        THE LINK TO CONTINUE.</p>
+                </div>
+              <div class="box1 box box_border_gray">
+                <div class="profile_title_yellow"><span>JOB APPLICATION SECONDARY SKILLS</span>
+                </div>
+              </div>
+                <div class="row1" *ngIf="job">
+                    <div class="reg_sec3_col1 align_left size_s">
+                        <table class="dtetct_reg_2" *ngIf="secondarySkillList.length > 0">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <ng-container *ngFor="let skill of secondarySkillList; let i=index;">
+                                    <td>
+                                        <div><span>{{skill.skill.name}}</span></div>
+                                    </td>
+                                    <td>
+                                        <md-checkbox [(ngModel)]="skill.isActive"></md-checkbox>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <tr *ngIf="(i+1) % 3 == 0"></tr>
+                                </ng-container>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row1">
+                    <div class="col1 align_left size70">
+                        <p class="reg_p1">ENTER YOUR SCORES AND SKILLS THEN PRESS SUBMIT FOR APPROVAL</p>
+                    </div>
+                    <div class="col2 size30 align_right"><button class="reg_btn2 red_btnTOgreen" [disabled]="!isDirect" (click)="updateSkills()">SUBMIT SCORES</button></div>
+                </div>
+
+                <div class="step2">
+                    <h2>STEP 3</h2>
+                    <p class="font_8">THESE ARE YOUR SECONDARY SKILLS. ADDING AS MANY SECONDARY SKILLS WILL GIVE YOU MORE ACCESS TO MORE AVAILABLE
+                        JOBS AND CLIENTS. YOPU CAN SWITCH YOUR 6 MAIN PRIMARY SKILLS WITH ANY OF YOUR SECONDARY SKILLS. </p><br>
+                    <p class="font_8">ALL SECONDARY SKILLS ARE ALSO MAIN SKILLS THAT YOU WOULD CONSIDER A MAJOR SKILL AND THAT YOU HAVE DEMONSTRATED
+                        IN YOUR CAREER.</p>
+                </div>
+            </div>
+        </div>
+        <div style="width:100%;height:40px;"></div>
+    </div>
+
+    <div class="ind_wrap" *ngIf="isForget">
+        <div class="frm">
+            <div class="title">
+                <span>Reset your password</span>
+            </div>
+            <form>
+                <div id="input_container" *ngIf="!isConfirmed">
+                    <input type="text" name="mail" [(ngModel)]="mail" placeholder="Email Address">
+                </div>
+                <div *ngIf="isConfirmed">
+                    <p *ngIf="emailPresent.length > 0">
+                        Please check your mail for instruction regarding resetting your password.
+                    </p>
+                    <p *ngIf="emailPresent.length == 0">
+                        Email not registered.
+                    </p>
+                </div>
+            </form>
+            <div class="btn" *ngIf="!isConfirmed">
+                <button class="frm_log" (click)="resetPassword()">RESET</button>
+            </div>
+        </div>
+    </div>
+
+    <ng2-toasty></ng2-toasty>
+
+    <div class="home_banner">
+        <img src="../assets/img/banner.gif">
+    </div>
+    <div class="footer">
+        <ul>
+            <li>©2016 CVCLOUD</li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Site Map</a></li>
+        </ul>
+    </div>
+</body>

@@ -1,0 +1,368 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Activity Centre</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../assets/js/jquery.circlechart.js"></script>
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body align="left">
+    <div *ngIf="user">
+        <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+        <div class="profile_header" *ngIf="!isInterviewRequest">
+            <div class="porfile_header_wrapper">TRACK <span style="color: #42C0FB;"> YOUR ACTIVITIES  </span></div>
+        </div>
+        <br/>
+        <div class="container" *ngIf="!isInterviewRequest">
+            <div class="doc_row1">
+                <div class="col1 align_left size_ms">
+                    <div class="box1 box_border" *ngIf="activityNews.length > 0">
+                        <div class="profile_title">NEWS FEED</div>
+                        <div class="inbox_news" *ngFor="let news of activityNews">
+                            <table class="detect_inbox1">
+                                <tr>
+                                    <td><img src="../assets/img/head.png"></td>
+                                    <td>
+                                        <p>Your Job with Job Id {{news.jobId}} is currently: {{news.message}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="inbox_box_footer">
+                                <p>posted {{getDiff(news.date)}} ago</p><img src="../assets/img/love.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2 align_right size_mb">
+
+                    <div class="box2 box_border">
+                        <div class="profile_title">RECENT TASKS</div>
+                        <table class="inbox_detect_2" *ngIf="interviewList.length > 0">
+                            <tr *ngFor="let interview of interviewList">
+                                <td>
+                                    <md-checkbox [(ngModel)]="interview.hasAccepted" [disabled]="true"></md-checkbox>
+                                </td>
+                                <td (click)="getInterviewRequest(interview)">
+                                    <p>Interview with <a>{{interview.client.companyName}}</a> - Scheduled</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="prof_cal  box1 box_border">
+                        <div class="profile_title">CALENDAR SCHEDULE</div>
+                        <img src="../assets/img/calander.gif">
+                    </div>
+
+                </div>
+                <!--======= End Of col2======= -->
+                <!--  =======end of Row1======= -->
+            </div>
+            <!--  =======end of Row1======= -->
+            <!--  =======end of container======= -->
+        </div>
+        <div class="profile_header" *ngIf="isInterviewRequest">
+            <div class="porfile_header_wrapper">INTERVIEW <span style="color: #42C0FB;">REQUEST </span></div>
+        </div>
+
+        <div class="container" *ngIf="isInterviewRequest && selectedInterview">
+            <div class="row1">
+                <div class="col1 size_mb align_left">
+                    <div class="box1 box_border_gray">
+                        <div class="profile_title" style="text-align:center;padding:0;background:#605E5E;">JOB DETAILS</div>
+                        <table class="detect_joe1" style="margin:15px 0;">
+                            <tr>
+                                <td rowspan="5" style="padding:20px;"><img style="border: 5px solid #605E5E;width: 85px;" class="bg1" src="../assets/img/dhl.gif"><br/>
+
+                                </td>
+
+                                <td>&nbsp;</td>
+                                <td>
+                                    <span class="joe_title">{{selectedInterview.client.companyName}}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td><span class="joe_sub_title">{{selectedInterview.job.jobTitle}}</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><img src="../assets/img/f4.png"></td>
+                                <td>{{selectedInterview.jobLocation}},{{selectedInterview.interviewAddress}}</td>
+                            </tr>
+
+                            <tr>
+                                <td><img src="../assets/img/f5.png"></td>
+                                <td>0800 000 000</td>
+                            </tr>
+                        </table>
+
+
+                        <table style="border-collapse:collapse;" class="detetct_interview2">
+                            <tr>
+                                <td style="background:#605E5E;">IDEAL SALARY</td>
+                                <td style="background:#605E5E;">MAXIMUM SALARY</td>
+                                <td style="background:#605E5E;" colspan="4">NEGOTIATE REMUNERATION</td>
+
+                            </tr>
+                            <tr>
+                                <td style="width: 154.33px;">
+                                    <div>{{selectedInterview.minSalary}}</div>
+                                </td>
+                                <td style="width: 153.38px;">
+                                    <div>{{selectedInterview.maxSalary?selectedInterview.maxSalary:selectedInterview.minSalary}}</div>
+                                </td>
+                                <td style="border-left: 1px solid #605E5E;">YES</td>
+                                <td>
+                                    <md-checkbox [(ngModel)]="selectedInterview.considerSalaryRange" [disabled]="true"></md-checkbox>
+                                </td>
+                                <td>NO</td>
+                                <td>
+                                    <md-checkbox [(ngModel)]="!selectedInterview.considerSalaryRange" [disabled]="true"></md-checkbox>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="border-collapse:collapse;" class="detetct_interview1">
+                            <tr>
+                                <td style="background:#605E5E;">LOWEST RATE</td>
+                                <td style="background:#605E5E;">DESIRED RATE</td>
+                                <td style="background:#605E5E;" colspan="4">WORK TYPE</td>
+
+                            </tr>
+                            <tr>
+                                <td style="width: 154.33px;">
+                                    <div>N/A</div>
+                                </td>
+                                <td style="width: 153.38px;">
+                                    <div>N/A</div>
+                                </td>
+                                <td style="border-left: 1px solid #605E5E;">CONT</td>
+                                <td>
+                                    <md-checkbox [(ngModel)]="!selectedInterview.permanent" [disabled]="true"></md-checkbox>
+                                </td>
+                                <td>PERM</td>
+                                <td>
+                                    <md-checkbox [(ngModel)]="selectedInterview.permanent" [disabled]="true"></md-checkbox>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+                    <div class="box1 box_border_gray_bold">
+                        <div class="profile_title_yellow box_border_gray">INTERVIEW DATE & TIME SLOTS</div>
+                        <div class="vitae_clearfix" *ngIf="schedules.length > 0">
+                            <table class="inbox_detect_2" *ngFor="let schedule of schedules">
+                                <tr>
+                                    <td>
+                                        {{schedule.dateTime}}
+                                    </td>
+                                    <td>
+                                        <md-checkbox [(ngModel)]="schedule.isSelected"></md-checkbox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="box1">
+                            <div class="profile_title_yellow box_border_gray">INTERVIEW DETAILS</div>
+                            <div class="interview_clearfix1 box_border_gray">
+                                <ul>
+                                    {{selectedInterview.interviewInfo}}
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="box2 box_border_gray" style="height: 255px;">
+                        <div style="background:#80E05C;color:white;" class="profile_title_yellow box_border_black">SKILLS REQUIRED</div>
+                        <div style="width:100%;height:20px;"></div>
+
+
+                        <div style="overflow:hidden">
+                            <div style="float:left;width:50%;padding:0;text-align:center;" class="profile_title_yellow box_border_gray">JOB SCORE</div>
+                            <div style="float:left;width:49%;background:#605E5E;" class="profile_title_gray box_border_gray">YOUR SCORE</div>
+                        </div>
+
+                        <div style="width:100%;height:15px;"></div>
+                        <div class="joe_candidate" *ngIf="selectedInterview.job.primarySkillsRequired.length > 0">
+                            <table class="fix_interview1">
+                                <tr>
+                                    <td>{{selectedInterview.job.primarySkillsRequired[0].name}}</td>
+                                    <td><span class="skill_nmbr">{{selectedInterview.job.primarySkillsRequired[0].score}}</span></td>
+                                    <td>{{selectedInterview.job.primarySkillsRequired[1].name}}</td>
+                                    <td><span class="skill_nmbr">{{selectedInterview.job.primarySkillsRequired[1].score}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>{{selectedInterview.job.primarySkillsRequired[2].name}}</td>
+                                    <td><span class="skill_nmbr">{{selectedInterview.job.primarySkillsRequired[2].score}}</span></td>
+                                    <td>{{selectedInterview.job.primarySkillsRequired[3].name}}</td>
+                                    <td><span class="skill_nmbr">{{selectedInterview.job.primarySkillsRequired[3].score}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>{{selectedInterview.job.primarySkillsRequired[4].name}}</td>
+                                    <td><span class="skill_nmbr">{{selectedInterview.job.primarySkillsRequired[4].score}}</span></td>
+                                    <td>{{selectedInterview.job.primarySkillsRequired[5].name}}</td>
+                                    <td><span class="skill_nmbr">{{selectedInterview.job.primarySkillsRequired[5].score}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="joe_candidate2" *ngIf="application.adminSkills.length > 0">
+                            <table class="fix_interview2">
+                                <tr>
+                                    <td>{{application.adminSkills[0].name}}</td>
+                                    <td><span class="skill_nmbr">{{application.adminSkills[0].score}}</span></td>
+                                    <td>{{application.adminSkills[1].name}}</td>
+                                    <td><span class="skill_nmbr">{{application.adminSkills[1].score}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>{{application.adminSkills[2].name}}</td>
+                                    <td><span class="skill_nmbr">{{application.adminSkills[2].score}}</span></td>
+                                    <td>{{application.adminSkills[3].name}}</td>
+                                    <td><span class="skill_nmbr">{{application.adminSkills[3].score}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>{{application.adminSkills[4].name}}</td>
+                                    <td><span class="skill_nmbr">{{application.adminSkills[4].score}}</span></td>
+                                    <td>{{application.adminSkills[5].name}}</td>
+                                    <td><span class="skill_nmbr">{{application.adminSkills[5].score}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col2 size_ms align_right">
+
+                    <div class="box1 box_border_gray">
+                        <div class="profile_title_yellow box_border_gray" style="text-align:center;padding:0;">CLIENT HIRING MANAGER</div>
+                        <table class="detect_joe1" style="margin:15px 0;">
+                            <tr>
+                                <td rowspan="5" style="padding:20px;"><img style="border: 5px solid #605E5E;width: 85px;" class="bg1" [src]="dynamicLink"><br/>
+
+                                </td>
+
+                                <td></td>
+                                <td>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+
+                            </tr>
+
+                            <tr>
+                                <td><img src="../assets/img/f4.png"></td>
+                                <td style="font-weight:700;">{{selectedInterview.organiser.name}}<br> {{selectedInterview.organiser.position}}<br> {{selectedInterview.organiser.location}}</td>
+                            </tr>
+
+                            <tr>
+                                <td><img src="../assets/img/f3.png"></td>
+                                <td style="font-weight:700;">{{selectedInterview.organiser.linkedinUrl}}
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box2 box_border_gray" *ngIf="selectedInterview.sharingDocuments.length > 0">
+                        <div style="background:#605E5E;" class="profile_title_gray">COMPANY DOCUMENTS</div>
+                        <table class="dash_box5" *ngIf="selectedInterview.sharingDocuments.length > 0">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <ng-container *ngFor="let document of selectedInterview.sharingDocuments; let i=index;">
+                                    <td (click)="downloadDocumentFile(document,i)"><img src="../assets/img/file.png"></td>
+                                    <td>
+                                        <div><span>{{document.name}}</span></div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="isDownloadDocument && documentObjectId==i">
+                                            <a [attr.href]="dynamicLinkDocument" class="btn-sm" download={{document.name}}>Download</a>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <tr *ngIf="(i+1) % 3 == 0"></tr>
+                                </ng-container>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box2 box_border_gray_bold">
+                        <div style="background:#605E5E;" class="profile_title_gray">CLIENT LOCATION</div>
+
+                        <img style="width:100%;" src="../assets/img/map_new.png">
+
+                        <table class="interview_detect_5">
+                            <tr>
+                                <td>VIA CAR</td>
+                                <td>PUBLIC</td>
+
+                                <td colspan="4">COMMUTE REQUIRED</td>
+
+                            </tr>
+
+                            <tr class="detect_joe6_row2">
+                                <td>
+                                    <div>49 MILES</div>
+                                    <div>1HR 24 MINS</div>
+                                </td>
+                                <td>
+                                    <div>49 MILES</div>
+                                    <div>1HR 24 MINS</div>
+                                </td>
+                                <td style="border-left: 1px solid;">NO</td>
+                                <td>
+                                    <md-checkbox [(ngModel)]="!selectedInterview.acceptCommute" [disabled]="true"></md-checkbox>
+                                </td>
+                                <td>YES</td>
+                                <td>
+                                    <md-checkbox [(ngModel)]="selectedInterview.acceptCommute" [disabled]="true"></md-checkbox>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="border:1px solid #ED1566;" class="box3">
+                        <div class="profile_title" style="background:#ED1566;">CONFIRM YOUR INTERVIEW?</div>
+
+                        <div class="interview_clear_fix3">
+                            CONFIRM YOUR INTERVIEW ACCEPTANCE
+                        </div>
+
+                        <div class="interview_clear_fix4">
+                            <ul>
+                                <li><button class="grayTOred" (click)="isInterviewRequest=!isInterviewRequest">NO</button></li>
+                                <li><button class="green_btn" (click)="acceptInterviewRequest()">YES</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng2-toasty></ng2-toasty>
+        <div class="footer">
+            <ul>
+                <li>©2016 CVCLOUD</li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site Map</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

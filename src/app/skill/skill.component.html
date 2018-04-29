@@ -1,0 +1,302 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Skills</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../assets/js/jquery.circlechart.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.min.js"></script>
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body align="left" topmargin="0" leftmargin="0" rightmargin="0">
+    <div>
+        <div class="d-1" data-percent="70"></div>
+        <script>
+            $('.d-1').percentcircle();
+            $('.d-6').percentcircle({
+                animate: true,
+                diameter: 100,
+                guage: 10,
+                coverBg: '#fff',
+                bgColor: '#efefef',
+                fillColor: '#D870A9',
+                percentSize: '18px',
+                percentWeight: 'normal'
+            });
+        </script>
+        <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+        <div class="profile_header">
+            <div class="porfile_header_wrapper">SKILLS <span style="color: #FEBD42;"> MODIFIER </span></div>
+        </div>
+        <br/>
+
+        <!--<div *ngIf="cvCandidate">
+            <div class="contentcentre" *ngIf="isSkill">
+
+                <div class="rTable">
+                    <div class="rTableRow">
+                        <div class="rTableHead">SKILLS SCORE</div>
+                    </div>
+                    <md-list-item *ngFor="let skill of dataList">
+                        <div class="rTableRow">
+                            <div class="rTableCell"> {{skill.name}} </div>
+                            <div class="rTableCell">
+                                <canvas baseChart [data]="skill.list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="doughnutChartOptions"
+                                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+
+                            </div>
+                        </div>
+                    </md-list-item>
+                </div>
+                <br><br>
+                <div (click)="editOpen()">
+                    <a style="text-decoration:none;" class="btn-sm">Add/Edit Candidate Skills</a>
+                </div>
+            </div>
+
+            <div class="contentcentre" *ngIf="!isSkill&&!isEdit" (click)="clickOpen()">
+                <a style="text-decoration:none;" class="btn-sm">Add Candidate Skills</a>
+            </div>
+            <div class="contentcentre" *ngIf="isEdit">
+                <div *ngFor="let skill of skillList;let i=index">
+                    <md-input-container style="font-size: large;">
+                        <input [(ngModel)]="skill.name" mdInput placeholder="Name">
+                    </md-input-container>
+                    <md-select style="font-size: large" placeholder="Score" [(ngModel)]="skill.score">
+                        <md-option *ngFor="let number of numbers" [value]="number">
+                            {{number}}
+                        </md-option>
+                    </md-select>
+                    <md-checkbox [(ngModel)]="skill.isPrimary" [disabled]="skill.isDisabled" (ngModelChange)="checkPrimaryCheckBox($event)">Primary</md-checkbox>
+                </div>
+                <button md-button (click)=addToSingleList() class="btn-sm">Add</button>
+                <button md-button (click)=updateSkills() class="btn-sm">Submit</button>
+            </div>
+        </div>-->
+
+        <div class="container" *ngIf="cvCandidate">
+            <div class="doc_row1">
+                <div class="col1 align_left size_m">
+
+                    <div style="margin-top: 5px;" class="profile_title_yellow box_border_gray">PRIMARY (ON SCREEN) SKILLS</div>
+
+                    <div class="row_1" *ngIf="isSkill">
+                        <!-- ============ Left sides ===== left boxes ===========-->
+                        <div class="size_m_child align_left ">
+
+                            <div class="doc_box1 gray_border">
+                                <div class="profile_title_gray_light">SKILL 1 (LOCKED)</div>
+                                <table class="doc1">
+                                    <tr>
+                                        <td rowspan="2">{{primarySkillList[0].name}}</td>
+                                        <td rowspan="2">{{primarySkillList[0].score}}</td>
+                                        <td rowspan="2">
+                                            <canvas baseChart style="width: 1%" [data]="primarySkillList[0].list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="doughnutChartOptions" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                        </td>
+                                        <td><img class="doc1_2" src="../assets/img/up.png"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="doc1_3" src="../assets/img/down.png"></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="doc_box1 gray_border">
+                                <div class="profile_title_gray_light">SKILL 3</div>
+                                <table class="doc1">
+                                    <tr>
+                                        <td rowspan="2">{{primarySkillList[2].name}}</td>
+                                        <td rowspan="2">{{primarySkillList[2].score}}</td>
+                                        <td rowspan="2">
+                                            <canvas baseChart style="width: 1%" [data]="primarySkillList[2].list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="doughnutChartOptions" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                        </td>
+                                        <td (click)="increaseValue(primarySkillList[2])"><img class="doc1_2" src="../assets/img/up.png"></td>
+                                    </tr>
+                                    <tr>
+                                        <td (click)="decreaseValue(primarySkillList[2])"><img class="doc1_3" src="../assets/img/down.png"></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="doc_box1 gray_border">
+                                <div class="profile_title_gray_light">SKILL 5</div>
+                                <table class="doc1">
+                                    <tr>
+                                        <td rowspan="2">{{primarySkillList[4].name}}</td>
+                                        <td rowspan="2">{{primarySkillList[4].score}}</td>
+                                        <td rowspan="2">
+                                            <canvas baseChart style="width: 1%" [data]="primarySkillList[4].list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="doughnutChartOptions" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                        </td>
+                                        <td (click)="increaseValue(primarySkillList[4])"><img class="doc1_2" src="../assets/img/up.png"></td>
+                                    </tr>
+                                    <tr>
+                                        <td (click)="decreaseValue(primarySkillList[4])"><img class="doc1_3" src="../assets/img/down.png"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="size_m_child align_right">
+
+                            <div class="doc_box1 gray_border">
+                                <div class="profile_title_gray_light">SKILL 2 (LOCKED)</div>
+                                <table class="doc1">
+                                    <tr>
+                                        <td rowspan="2">{{primarySkillList[1].name}}</td>
+                                        <td rowspan="2">{{primarySkillList[1].score}}</td>
+                                        <td rowspan="2">
+                                            <canvas baseChart style="width: 1%" [data]="primarySkillList[1].list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="doughnutChartOptions" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                        </td>
+                                        <td><img class="doc1_2" src="../assets/img/up.png"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="doc1_3" src="../assets/img/down.png"></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="doc_box1 gray_border">
+                                <div class="profile_title_gray_light">SKILL 4</div>
+                                <table class="doc1">
+                                    <tr>
+                                        <td rowspan="2">{{primarySkillList[3].name}}</td>
+                                        <td rowspan="2">{{primarySkillList[3].score}}</td>
+                                        <td rowspan="2">
+                                            <canvas baseChart style="width: 1%" [data]="primarySkillList[3].list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="doughnutChartOptions" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                        </td>
+                                        <td (click)="increaseValue(primarySkillList[3])"><img class="doc1_2" src="../assets/img/up.png"></td>
+                                    </tr>
+                                    <tr>
+                                        <td (click)="decreaseValue(primarySkillList[3])"><img class="doc1_3" src="../assets/img/down.png"></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="doc_box1 gray_border">
+                                <div class="profile_title_gray_light">SKILL 6</div>
+                                <table class="doc1">
+                                    <tr>
+                                        <td rowspan="2">{{primarySkillList[5].name}}</td>
+                                        <td rowspan="2">{{primarySkillList[5].score}}</td>
+                                        <td rowspan="2">
+                                            <canvas baseChart style="width: 1%" [data]="primarySkillList[5].list" [colors]="chartColors" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                                [options]="doughnutChartOptions" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                        </td>
+                                        <td (click)="increaseValue(primarySkillList[5])"><img class="doc1_2" src="../assets/img/up.png"></td>
+                                    </tr>
+                                    <tr>
+                                        <td (click)="decreaseValue(primarySkillList[5])"><img class="doc1_3" src="../assets/img/down.png"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- ===================== Left side Right Box1 =========== -->
+                    </div>
+
+                    <table style="margin: 0 auto;border-spacing: 10px;">
+                        <tr>
+                            <td> <button class="doc_btn_left1 grayTOgreen" (click)="saveSkills()">SAVE</button></td>
+                            <td><button class="doc_btn_left2 green_btn" (click)="cancelSkillChange()">CANCEL</button></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--======= End Of col1======= -->
+
+
+                <!--=======  col2       ======= -->
+                <div class="col2 align_right size_m">
+
+                    <div class="box2 box_border_gray">
+                        <div class="profile_title_yellow box_border_gray">SECONDARY SKILLS</div>
+                        <div class="size_m_child align_left">
+                            <table class="doc5" *ngFor="let skill of secondarySkillList">
+                                <tr>
+                                    <td rowspan="2">{{skill.name}}</td>
+                                    <td rowspan="2">{{skill.score}}</td>
+                                    <td (click)="increaseValue(skill)"><img class="doc5_2" src="../assets/img/up.png"></td>
+                                </tr>
+                                <tr>
+                                    <td (click)="decreaseValue(skill)"><img class="doc5_3" src="../assets/img/down.png"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="size_m_child align_right">
+                            <p class="doc5_p">SECONDARY SKILL SCORES ARE NOT MANDATORY HOWEVER IF YOU SWITCH THE SECONDARY SKILL ACROSS TO
+                                A PRIMARY SKILL THEN THE SCORE BECOMES ACTIVE. </p>
+                        </div>
+                        <div class="size_m_child align_left">
+                            <button class="doc_btn_left1 gray_btn" (click)="saveSkills()">SAVE</button>
+                        </div>
+                        <div class="size_m_child align_right">
+                            <button class="doc_btn_left2 gray_btn_rev" (click)="cancelSkillChange()">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  =======end of Row1======= -->
+            <div style="width:100%;height:15px;"></div>
+
+            <div style="padding-bottom: 15px;background: #F5F2F2;" class="row1 box_border_gray">
+                <div class="profile_title_yellow box_border_gray">SKILLS TRANSFER CONSOLE</div>
+                <div style="width:100%;height:15px;"></div>
+
+                <div class="box_list size_very_small align_left gray_border" *ngIf="primarySkillList.length > 0">
+                    <div class="profile_title_gray_light">PRIMARY SKILLS</div>
+                    <ul style="list-style:number;" class="doc_list">
+                        <li>{{primarySkillList[0].name}} - LOCKED</li>
+                        <li>{{primarySkillList[1].name}} - LOCKED</li>
+                        <li>{{primarySkillList[2].name}}</li>
+                        <li>{{primarySkillList[3].name}}</li>
+                        <li>{{primarySkillList[4].name}}</li>
+                        <li>{{primarySkillList[5].name}}</li>
+                    </ul>
+                </div>
+                <div class="box_list size_very_small align_left gray_border" *ngIf="secondarySkillList.length > 0 && !isTransfer">
+                    <div class="profile_title_gray_light">SECONDARY SKILLS</div>
+                    <ul style="list-style:number;" class="doc_list" *ngFor="let skill of secondarySkillList">
+                        <li>
+                            {{skill.name}}
+                        </li>
+                    </ul>
+                    <button class="grayTOgreen list_btn2" (click)="isTransfer=!isTransfer">EDIT</button>
+                </div>
+                <div class="box_list size_very_small align_left gray_border" *ngIf="skillList.length > 0 && isTransfer">
+                    <div class="profile_title_gray_light">SKILL TRANSFER</div>
+                    <table *ngFor="let skill of skillList;let i=index">
+                        <tr>
+                            {{skill.name}}
+                            <md-checkbox [(ngModel)]="skill.isPrimary" [disabled]="skill.isDisabled || i==0 || i==1" (ngModelChange)="checkPrimaryCheckBox($event)">Primary</md-checkbox>
+                        </tr>
+                    </table>
+                    <button class="grayTOgreen list_btn2" (click)="updateSkills()">SAVE</button>
+                </div>
+                <div class="box_list size_very_small align_left gray_border" *ngIf="otherSkillList.length > 0">
+                    <div class="profile_title_gray_light">OTHER SKILLS</div>
+                    <ul style="list-style:number;" class="doc_list" *ngFor="let skill of otherSkillList">
+                        <li>{{skill.name}}</li>
+                    </ul>
+                </div>
+                <div class="box_list size_very_small align_left gray_border">
+                    <div class="profile_title_red">NEW SKILL<br/> REQUEST</div>
+                    <md-input-container style="font-size: large;">
+                        <input [(ngModel)]="requestedSkill" mdInput placeholder="Skill">
+                    </md-input-container>
+                    <button class="green_btn list_btn4" (click)="request()">REQUEST</button>
+                </div>
+            </div>
+        </div>
+        <div style="width:100%;height:15px;"></div>
+        <div class="contentcentre" *ngIf="!cvCandidate">
+            <h1>Add Candidate Profile First</h1>
+        </div>
+        <ng2-toasty></ng2-toasty>
+        <include-footer></include-footer>
+    </div>
+</body>
+
+</html>

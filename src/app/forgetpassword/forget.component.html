@@ -1,0 +1,63 @@
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- for The Mobile Version Menu -->
+    <script src="js/fastclick.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/fixed-responsive-nav.js"></script>
+    <script src="js/responsive-nav.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- End of Mobile Version Menu -->
+    <title>CV Cloud Candidate Forget Password</title>
+</head>
+
+<body>
+    <div class="cv_background">
+        <video playsinline autoplay muted loop poster="polina.jpg" id="bgvid">
+            <source src="../assets/img/UC-download.mp4" type="video/mp4">
+            <!--[if lt IE 9] -->
+            <script>
+                document.createElement('video');
+            </script>
+            <!--[endif]-->
+        </video>
+    </div>
+    <div class="ind_wrap" *ngIf="forgetPassword">
+        <div class="frm">
+            <div class="title">
+                <span>Reset your password</span>
+            </div>
+            <form>
+                <div id="input_container">
+                    <input type="password" name="password" [(ngModel)]="forgetPassword.link" placeholder="Password">
+                </div>
+                <div id="input_container">
+                    <input type="password" name="confirmpassword" [(ngModel)]="passwordAgain" (ngModelChange)="checkPassword($event)" placeholder="Re enter password">{{passwordText}}
+                </div>
+                <div>
+                    <ng2-password-strength-bar [passwordToCheck]="forgetPassword.link" [barLabel]="passwordLabel">
+                    </ng2-password-strength-bar>
+                </div>
+                <div class="btn">
+                    <button class="frm_log" name="reset" (click)="resetPassword()">RESET</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng2-toasty></ng2-toasty>
+    <div class="home_banner">
+        <img src="../assets/img/banner.gif">
+    </div>
+    <div class="footer">
+        <ul>
+            <li>©2016 CVCLOUD</li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Site Map</a></li>
+        </ul>
+    </div>
+</body>

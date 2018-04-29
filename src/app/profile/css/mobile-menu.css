@@ -1,0 +1,17 @@
+.mobile_menu{display:none;}
+
+.mobile_menu ul li{   display: block;
+    padding: 14px;}
+.mobile_menu ul li a{text-decoration:none;color:white;    font-size: 24px;
+    font-family: sans-serif;}
+
+.mobile_menu {background:rgba(72, 91, 127, 1);}
+
+.mobile_menu i{color: white;
+    margin: 30px;
+    font-size: 24px;
+}
+
+.mobile_menu img{    margin-right: 10px;}
+
+.show{display:block !important; transition:all 1s ease;}

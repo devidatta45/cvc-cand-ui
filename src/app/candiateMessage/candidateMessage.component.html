@@ -1,0 +1,104 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Inbox</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../assets/js/jquery.circlechart.js"></script>
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body align="left">
+    <div *ngIf="user">
+        <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+        <div class="profile_header">
+            <div class="porfile_header_wrapper">INSTANT <span style="color: #42C0FB;"> MESSAGE DIRECT  </span></div>
+        </div>
+        <div class="container">
+            <div class="profile_title">CVCLOUD MAIL SERVICES</div>
+            <div class="cloud_inbox_wrapper">
+                <div class="cv_inbox_col1">
+                    <ul>
+                        <li><a><img src="../assets/img/search.png"><p>SEARCH</p></a></li>
+                        <li><a><img src="../assets/img/new.png"><p>NEW </p></a></li>
+                        <li><a class="cv_inbox_active2"><img src="../assets/img/inbox.png"><p>INBOX</p></a></li>
+                        <li><a><img src="../assets/img/people.png"><p>PEOPLE </p></a></li>
+                        <li><a><img src="../assets/img/settings.png"><p>SETTINGS </p></a></li>
+                    </ul>
+                </div>
+                <div class="cv_inbox_col2" *ngIf="messagesFromClient && messagesFromClient.length > 0">
+                    <div class="cv_inbox_tab" [ngClass]="selectedItem===message.message.owner._id?'cv_inbox_active':''" *ngFor="let message of messagesFromClient">
+                        <table class="cv_inbox_detect" (click)="showMessages(message.message)">
+                            <tr>
+                                <td rowspan="2"><img src="../assets/img/head.png"></td>
+                                <td>{{message.message.owner.firstName}} {{message.message.owner.lastName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{message.conversation.length}} MESSAGES {{message.conversation[0].lastTime}} ago</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="cv_inbox_col3" *ngIf="selectedMessage && conversations.length > 0">
+                    <div class="cv_inbox_title">
+                        <h3>FROM {{selectedMessage.owner.firstName}} {{selectedMessage.owner.lastName}}</h3>
+                        <p>{{conversations.length}} MESSAGES</p>
+                    </div>
+                    <div class="cv_row" *ngFor="let convo of conversations">
+                        <div *ngIf="convo.conversation.userId==user._id">
+                            <div class="cv_message_wrap_admin">
+                                <div class="cv_message_admin">
+                                    <p>{{convo.conversation.chat}}</p>
+                                    <table>
+                                        <tr>
+                                            <td> </td>
+                                            <td> </td>
+                                        </tr>
+                                        <tr>
+                                            <td> </td>
+                                            <td> </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <p class="inbox_time">{{getDiff(convo.conversation.lastTime)}} ago</p>
+
+                            </div>
+                        </div>
+                        <div *ngIf="convo.conversation.userId!=user._id">
+                            <div class="cv_message_wrap_user">
+                                <div class="cv_message">
+                                    <p>{{convo.conversation.chat}}</p>
+                                    <table>
+                                        <tr>
+                                            <td> </td>
+                                            <td> </td>
+                                        </tr>
+                                        <tr>
+                                            <td> </td>
+                                            <td> </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <p class="inbox_time">{{getDiff(convo.conversation.lastTime)}} ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <textarea [(ngModel)]="replyMessage" style="width:98%;height:100px" placeholder="Type A Message Here...">
+                        </textarea>
+                        <button md-button (click)=reply(selectedMessage)>Reply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <ul>
+                <li>©2016 CVCLOUD</li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site Map</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

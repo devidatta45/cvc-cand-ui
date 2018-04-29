@@ -1,0 +1,385 @@
+
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    
+     .align_left{float:none;}
+    .align_right{float:none;}  
+    .size_s{width:100%;}
+.size_mb{width:100%;}
+.size_ms{width:100%;}
+.size_m{width:100%;}
+.size70{width:100%;}
+.size30{width:100%;}
+    .size_m_child{width: 95%;
+    margin: 0 auto;}
+    .size20 {
+    width: 100%;
+}
+.size_very_small {
+    width: 98%;
+}
+
+    .container{width:100%;margin:0 auto;    height:auto;    overflow: hidden;}
+    
+    .full_nav{display: none;}
+    .mobile_menu{display: block;}
+    .chat_btn button{margin-right: 175px;margin-top: 25px;}
+    
+    
+    /* ===============index page============= */
+    
+    .frm {
+        width: 60%;}
+    
+    
+     /* ===============Registration page============= */
+
+    .c2,.c3 {
+        width: 180px;}
+
+    .c4,.c5,.c6,.c7 {
+        width: 200px;}
+
+    .c9 {
+    width: 275px;
+}
+.c12,.c13,.c11 {
+    width: 147px;
+    }
+     .step2 p {
+    height: inherit;
+}
+      .profile_title {
+    text-align: center;
+    padding: inherit;
+}
+    
+    .porfile_header_wrapper {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+       /* ===============Edit page============= */
+    .reg_sec2 ul li {
+  
+    margin-bottom: 10px;}
+    .dtetct_edit6{margin: 0 auto;}
+    
+    .edit_sec9 {
+    position: relative;
+        top: 0px;height: auto;}
+    .detect_edit12 {
+    border: 1px solid #605E5E;
+    margin-top: 10px;
+}
+    
+    .detect_edit1 {
+    margin-top: 20px;
+        margin: 20px auto;}
+
+
+    
+}
+
+
+
+@media only screen and (min-device-width : 580px) and (max-device-width : 767px) {
+    
+   .full_nav{display: none;}
+    .mobile_menu{display: block;}
+    .chat_btn button{margin-right: 15px;margin-top: 25px;}
+    
+    .size_s{width:100%;}
+.size_mb{width:100%;}
+.size_ms{width:100%;}
+.size_m{width:100%;}
+.size70{width:100%;}
+.size30{width:100%;}
+.size_m_child{width: 95%;
+    margin: 0 auto;}
+.size_very_small {
+    width: 98%;
+}
+
+.size_b{width:63%;}
+    .align_left{float:none;}
+    .align_right{float:none;}
+.position_ab{position:absolute;}
+.position_rel{position:relative;}
+.container{width:100%;margin:0 auto;    height:auto;    overflow: hidden;}
+    
+    .full_nav{display: none;}
+    .mobile_menu{display: block;}
+    .chat_btn button{margin-right: 70px;margin-top: 25px;}
+    
+    
+    /* ===============index page============= */
+    
+    .frm {
+        width: 80%;}
+
+    .home_banner img {
+    width: 287px;
+    margin: 0px auto;
+    display: block;
+    padding-top: 43px;
+}
+    .footer ul {
+    margin-left: 0px;
+}
+
+
+   
+    /* ===============Registration page============= */
+    
+    
+.frm_level1 li {
+    display: block;
+    margin-bottom: 10px;
+}
+.porfile_header_wrapper {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+.frm_level2 li {
+    display: block;
+    margin-bottom: 10px;
+}
+.frm_level3 li {
+    display: block;
+    margin-bottom: 10px;
+}
+    .frm_level4 li {
+    display: block;
+    margin-bottom: 10px;
+}
+
+  .step2 p {
+    height: inherit;
+}
+    .profile_title {
+    text-align: center;
+    padding: inherit;
+}
+    
+    
+    
+    /*  ============Edit Page==================== */
+    
+    .size20 {
+    width: 100%;
+}
+    
+    .e2 {
+    width: 150px;
+    }
+    
+    .e1 {
+    width: 308px;
+}
+    
+    .dtetct_edit6{margin: 0 auto;}
+    
+    .dtetct_edit10 tr:nth-child(3) td div {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+.edit_sec9 {
+    position: relative;
+    top: 0;
+    margin: 0 20px;
+    height: auto;
+}
+    
+    .detect_edit1 {
+    margin-top: 20px;
+    margin: 0 auto;
+}
+.reg_sec2 ul li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+
+  
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-device-width : 0px) and (max-device-width : 579px) {
+    
+
+    
+    .full_nav{display: none;}
+    .mobile_menu{display: block;}
+    .chat_btn button{margin-right: 15px;margin-top: 25px;}
+    
+    .size_s{width:100%;}
+.size_mb{width:100%;}
+.size_ms{width:100%;}
+.size_m{width:100%;}
+.size70{width:100%;}
+.size30{width:100%;}
+.size_m_child{width: 95%;
+    margin: 0 auto;}
+.size_very_small {
+    width: 98%;
+}
+
+.size_b{width:63%;}
+    .align_left{float:none;}
+    .align_right{float:none;}
+.position_ab{position:absolute;}
+.position_rel{position:relative;}
+.container{width:100%;margin:0 auto;    height:auto;    overflow: hidden;}
+    
+    
+    
+    /* ===============index page============= */
+    
+    .frm {
+        width: 90%;}
+
+    .home_banner img {
+    width: 287px;
+    margin: 0px auto;
+    display: block;
+    padding-top: 43px;
+}
+    
+    .footer ul li {padding: 8px;}
+
+.footer ul {
+    margin-left: 0px;
+}
+    
+ 
+    /* ===============Registration page============= */
+    
+    
+.frm_level1 li {
+    display: block;
+    margin-bottom: 10px;
+}
+.porfile_header_wrapper {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+.frm_level2 li {
+    display: block;
+    margin-bottom: 10px;
+}
+.frm_level3 li {
+    display: block;
+    margin-bottom: 10px;
+}
+    .frm_level4 li {
+    display: block;
+    margin-bottom: 10px;
+}
+
+  .step2 p {
+    height: inherit;
+}
+  .profile_title {
+    text-align: center;
+    padding: inherit;
+}
+    
+
+    .c1, .c2, .c3, .c4, .c5, .c6, .c7, .c8, .c9, .c10, .c11, .c12, .c13, .c14{width: 50%;
+margin:5px auto;
+display: block;
+}
+    
+    
+
+
+/*  ============Edit Page==================== */
+    
+    .size20 {
+    width: 100%;
+}
+    
+    .e2 {
+    width: 150px;
+    }
+    
+    .e1 {
+    width: 308px;
+}
+    
+    .dtetct_edit6{margin: 0 auto;}
+    
+    .dtetct_edit10 tr:nth-child(3) td div {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+.edit_sec9 {
+    position: relative;
+    top: 0;
+    margin: 0 20px;
+    height: auto;
+}
+
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (min-device-width : 1300px) and (max-device-width : 2200px) {
+    
+.x1{height: 335px;}
+.z1{position: relative;
+top: -60px;
+}
+  .x4{height: 505px;}  
+    
+    .z3{position: relative;
+top: -60px;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,224 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Documents</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../assets/js/jquery.circlechart.js"></script>
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+</head>
+
+<body align="left">
+    <div *ngIf="user && uploader && cvCandidate">
+        <include-top [user]="user" [count]="count" [activityCount]="activityCount"></include-top>
+        <div class="profile_header">
+            <div class="porfile_header_wrapper">EDIT <span style="color: #FFBD42;"> YOUR DOCUMENTS </span></div>
+        </div>
+        <br/>
+        <div class="container" *ngIf="cvCandidate.employmentDetails">
+            <div class="box1 box_border_gray">
+                <div style="border-top:none;border-left:none;border-right:none;" class="profile_title_yellow box_border_gray">CV</div>
+                <div class="profile_name"></div>
+                <table class="detect_inv1" *ngIf="cvCandidate.employmentDetails.resume && actualResult">
+                    <tr class="dash1_col1">
+                        <td colspan="2">DOCUMENT NAME</td>
+                        <td style="text-align:center;">DOCUMENT TYPE</td>
+                        <td>DATE UPLOADED</td>
+                        <td>AUTHOR</td>
+                        <td>OTHER</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td (click)="downloadFile(actualResult)"><img src="../assets/img/gray%20file.png"></td>
+                        <td>{{actualResult.filename}}</td>
+                        <td>{{cvCandidate.employmentDetails.resume.documentType}}</td>
+                        <td><span>{{getRequiredDate(cvCandidate.employmentDetails.resume.modifiedDate)}}</span></td>
+                        <td>{{user.firstName}} {{user.lastName}}</td>
+                        <td>
+                            <div *ngIf="isDownload">
+                                <a [attr.href]="dynamicLink" class="btn-sm" download={{actualResult.filename}}>Download & Change</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row_1">
+                    <table class="detect_md">
+                        <tr>
+                            <td>
+                                <button class="green_btn" (click)="isFileOpen=!isFileOpen">SAVE</button>
+                                <div *ngIf="isFileOpen">
+                                    <h1>Upload Resume</h1>
+                                    <input type="file" ng2FileSelect [uploader]="uploader" />
+                                    <tr *ngFor="let item of uploader.queue">
+                                        <td class="text-center">
+                                            <span *ngIf="item.isSuccess">Success</span>
+                                            <span *ngIf="item.isCancel">Cancelled</span>
+                                            <span *ngIf="item.isError">Error</span>
+                                        </td>
+                                        <button md-button (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess" class="btn-sm">
+                Upload
+            </button>
+                                        <button md-button (click)="item.remove()" class="btn-sm">
+                 Cancel
+            </button>
+                                    </tr>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+
+            <div class="box1 box_border_gray">
+                <div style="border-top:none;border-left:none;border-right:none;" class="profile_title_yellow box_border_gray">CERTIFICATIONS</div>
+                <div class="profile_name"></div>
+
+                <table class="detect_inv1">
+
+                    <tr class="dash1_col1">
+                        <td colspan="2">DOCUMENT NAME</td>
+                        <td style="text-align:center;">DOCUMENT TYPE</td>
+                        <td>DATE UPLOADED</td>
+                        <td>AUTHOR</td>
+                        <td>OTHER</td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/img/gray%20file.png"></td>
+                        <td>MRS HAPPY</td>
+                        <td>WORD .DOC</td>
+                        <td>30/05/17</td>
+                        <td>DHL/RH</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/img/gray%20file.png"></td>
+                        <td>MR SAD</td>
+                        <td>WORD .DOC</td>
+                        <td>30/05/17</td>
+                        <td>DHL/RH</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                </table>
+
+                <div class="row_1">
+                    <table class="detect_md">
+                        <tr>
+                            <td><button class="grayTOgreen">EDIT</button></td>
+                            <td><button class="green_btn">SAVE</button></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="box1 box_border_gray">
+                <div style="border-top:none;border-left:none;border-right:none;" class="profile_title_yellow box_border_gray">REFERENCES</div>
+                <div class="profile_name"></div>
+
+                <table class="detect_inv1">
+
+                    <tr class="dash1_col1">
+                        <td colspan="2">DOCUMENT NAME</td>
+                        <td style="text-align:center;">DOCUMENT TYPE</td>
+                        <td>DATE UPLOADED</td>
+                        <td>AUTHOR</td>
+                        <td>OTHER</td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/img/gray%20file.png"></td>
+                        <td>MRS HAPPY</td>
+                        <td>WORD .DOC</td>
+                        <td>30/05/17</td>
+                        <td>DHL/RH</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../assets/img/gray%20file.png"></td>
+                        <td>MR SAD</td>
+                        <td>WORD .DOC</td>
+                        <td>30/05/17</td>
+                        <td>DHL/RH</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                </table>
+
+                <div class="row_1">
+                    <table class="detect_md">
+                        <tr>
+                            <td><button class="grayTOgreen">EDIT</button></td>
+                            <td><button class="green_btn">SAVE</button></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="box1 box_border_gray">
+                <div style="border-top:none;border-left:none;border-right:none;" class="profile_title_yellow box_border_gray">PERSONAL</div>
+                <div class="profile_name"></div>
+                <table class="detect_inv1" *ngIf="cvCandidate.employmentDetails.candidateDocuments.length > 0">
+                    <tr class="dash1_col1">
+                        <td colspan="2">DOCUMENT NAME</td>
+                        <td style="text-align:center;">DOCUMENT TYPE</td>
+                        <td>DATE UPLOADED</td>
+                        <td>AUTHOR</td>
+                        <td>OTHER</td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let document of cvCandidate.employmentDetails.candidateDocuments;let i=index">
+                        <td (click)="downloadDocumentFile(document,i)"><img src="../assets/img/gray%20file.png"></td>
+                        <td>{{document.name}}</td>
+                        <td>{{document.documentType}}</td>
+                        <td><span>{{getRequiredDate(document.modifiedDate)}}</span></td>
+                        <td>{{user.firstName}} {{user.lastName}}</td>
+                        <td>
+                            <div *ngIf="isDownloadDocument && documentObjectId==i">
+                                <a [attr.href]="dynamicLinkDocument" class="btn-sm" download={{document.name}}>Download</a>
+                            </div>
+                        </td>
+                        <td> </td>
+                    </tr>
+                </table>
+                <div class="row_1">
+                    <table class="detect_md">
+                        <tr>
+                            <td><button class="green_btn" (click)="isFileOpenMultiple=!isFileOpenMultiple">SAVE</button></td>
+                            <div *ngIf="isFileOpenMultiple">
+                                <h1>Upload Documents</h1>
+                                <input type="file" ng2FileSelect [uploader]="multiUploader" multiple /><br/>
+                                <tr *ngFor="let item of multiUploader.queue">
+                                    <td class="text-center">
+                                        <span *ngIf="item.isSuccess">Success</span>
+                                        <span *ngIf="item.isCancel">Cancelled</span>
+                                        <span *ngIf="item.isError">Error</span>
+                                    </td>
+                                </tr>
+                                <button md-button (click)="multiUploader.uploadAll()" class="btn-sm">
+                Upload All
+            </button>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width:100%;height:40px;"></div>
+        </div>
+        <div *ngIf="!cvCandidate.employmentDetails">
+            <h1>Add Candidate Information First</h1>
+        </div>
+    </div>
+    <div *ngIf="user && !cvCandidate">
+        <h1>Add Candidate Information First</h1>
+    </div>
+    <include-footer></include-footer>
+</body>
+
+</html>
